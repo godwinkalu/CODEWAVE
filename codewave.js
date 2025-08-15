@@ -111,7 +111,7 @@ app.post("/studentAndScore", (req,res)=>{
 })
 //Retrive  all student and their  score
 app.get('/getAllStudents', (req,res)=>{
-const  query = `SELECT  s.fullname, sc.punctuality, sc.assignment, FROM codewave.studenttable join codewave.studentscores on s.student_id = sc.student_id`
+const  query = `SELECT  s.fullname, sc.punctuality, sc.assignment FROM codewave.studenttable s join codewave.studentscores sc on s.student_id = sc.student_id`
 sql.query(query,(err,data)=>{
   if(err){
     return res.status(400).json({
@@ -148,6 +148,11 @@ app.put("/update/:studentId", (req, res)=>{
           message:'error',
           error:err.message,
         })
+      }  else  {
+        return res.status(200).json({
+          message:'successfully updated',
+          
+        })
       }
     })
    } catch (error) {
@@ -182,7 +187,7 @@ app.delete("/deleteArecord/:studentId", (req, res)=>{
 // to get all students and their scores and show Null where no score exists
 app.get('/getAllstudentsWithLeftJoin', (req, res) => {
   try {
-    const query =` SELECT students.fullName, scores.totalScore FROM  codewave.studenttable LEFT JOIN codewave.studentscores ON students.student_id =  scores.student_id`
+    const query =` SELECT studenttable.fullname, studentscores.totalScore FROM  codewave.studenttable LEFT JOIN codewave.studentscores ON studenttable.student_id =  studentscores.student_id`
 
     sql.query(query, (err, data) => {
       if (err) {
@@ -207,7 +212,7 @@ app.get('/getAllstudentsWithLeftJoin', (req, res) => {
 
 app.get('/getAllstudentsWithRightJoin', (req, res) => {
   try {
-    const query = `SELECT scores.totalScore, students.fullName FROM codewave.studenttable RIGHT JOIN codewave.studentscores ON students.student_id = scores.student_id`
+    const query = `SELECT  studentscores.totalScore, studenttable.fullName FROM codewave.studenttable RIGHT JOIN codewave.studentscores ON students.student_id = scores.student_id`
 
     sql.query(query, (err, data) => {
       if (err) {
