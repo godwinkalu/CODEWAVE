@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 app.use (express.json());
 const port = 1234;
+const uuid = require('uuid').v4
+
 const db = require("mysql2");
 
 const sql = db.createConnection({
