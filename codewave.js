@@ -212,7 +212,7 @@ app.get('/getAllstudentsWithLeftJoin', (req, res) => {
 
 app.get('/getAllstudentsWithRightJoin', (req, res) => {
   try {
-    const query = `SELECT  studentscores.totalScore, studenttable.fullName FROM codewave.studenttable RIGHT JOIN codewave.studentscores ON students.student_id = scores.student_id`
+    const query = `SELECT  studentscores.totalScore, studenttable.fullName FROM codewave.studenttable RIGHT JOIN codewave.studentscores ON studenttable.student_id = studentscores.student_id`
 
     sql.query(query, (err, data) => {
       if (err) {
